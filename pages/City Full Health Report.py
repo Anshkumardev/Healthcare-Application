@@ -16,6 +16,11 @@ from openai import OpenAI
 # ──────────────────────────────────────────────────────
 st.set_page_config(page_title="City Health Dashboard & Report", layout="wide")
 
+def reset_report():
+    # Drop only if they exist – avoids KeyError
+    st.session_state.pop("narrative", None)
+    st.session_state.pop("policy", None)
+
 # ──────────────────────────────────────────────────────
 # Data Loading
 # ──────────────────────────────────────────────────────
@@ -37,7 +42,8 @@ openai_client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 # Sidebar – City Selection
 # ──────────────────────────────────────────────────────
 st.sidebar.title("🏙️ City Selector")
-selected_city = st.sidebar.selectbox("Select a City", cities)
+selected_city = st.sidebar.selectbox("Select a City", cities,          # Give the widget a stable key
+    on_change=reset_report   )
 
 city_data = gdf[gdf["PlaceName"] == selected_city]
 if city_data.empty:
