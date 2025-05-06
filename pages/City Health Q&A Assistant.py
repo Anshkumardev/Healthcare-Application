@@ -117,9 +117,9 @@ pandas_tool = Tool(
     name="HealthcareDataAnalyzer",
     func=run_pandas,
     description=(
-        "Run pandas code on the full census-tract DataFrame. "
-        "If the user asks to **list** or **show** rows, return a markdown "
-        "table; if they ask for counts/averages/medians, return the scalar "
+        "Run pandas code on the full census-tract DataFrame.  "
+        "**Uninsured_Rate is already in percent** (0.5 means 0.5%), so do NOT multiply by 100.  "
+        "If the user asks for an average uninsured rate, just return the raw mean and append “%.”"
         "number.\n\n"
         "Example list-type prompts:\n"
         "• “List the census tracts in Tucson that have no doctors.”\n"
